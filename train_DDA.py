@@ -38,6 +38,8 @@ if __name__ == '__main__':
     parser.add_argument('--hgt_out_dim', default='128', type=int, help='heterogeneous graph transformer output dimension') # d
     parser.add_argument('--tr_layer', default='2', type=int, help='transformer layer')
     parser.add_argument('--tr_head', default='4', type=int, help='transformer head')
+    
+    parser.add_argument('--use_feature_transform', action='store_true', help='whether to use feature transform before RBF')
 
     args = parser.parse_args()
     args.data_dir = 'data/' + args.dataset + '/'
@@ -88,8 +90,8 @@ if __name__ == '__main__':
         Y_test = data['Y_test'][i].flatten()
 
         drdipr_graph, data = dgl_heterograph(data, data['X_train'][i], args)
-        print("节点总数是:", drdipr_graph.number_of_nodes())  # 总节点数（所有类型）
-        print("边总数是：", drdipr_graph.number_of_edges())  # 总边数（所有类型）
+        # print("节点总数是:", drdipr_graph.number_of_nodes())  # 总节点数（所有类型）
+        # print("边总数是：", drdipr_graph.number_of_edges())  # 总边数（所有类型）
 
         drdipr_graph = drdipr_graph.to(device)
 
@@ -126,8 +128,7 @@ if __name__ == '__main__':
                 best_aupr, best_accuracy, best_precision, best_recall, best_f1, best_mcc = AUPR, accuracy, precision, recall, f1, mcc
                 print('AUC improved at epoch ', best_epoch, ';\tbest_auc:', best_auc)
 
-        # 反向传播调整 weight 值
-        
+
         AUCs.append(best_auc)
         AUPRs.append(best_aupr)
 

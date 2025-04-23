@@ -50,7 +50,7 @@ def get_data(args):
     data['drpr'] = pd.read_csv(args.data_dir + 'DrugProteinAssociationNumber.csv', dtype=int).to_numpy()
     data['dipr'] = pd.read_csv(args.data_dir + 'ProteinDiseaseAssociationNumber.csv', dtype=int).to_numpy()
 
-    # new
+    # new 1
     # data['drdr'] = pd.read_csv(args.data_dir + 'DrugDrugAssociationNumber.csv', dtype=int).to_numpy()
     # data['prpr'] = pd.read_csv(args.data_dir + 'ProteinProteinAssociationNumber.csv', dtype=int).to_numpy()
 
@@ -190,7 +190,7 @@ def dgl_heterograph(data, drdi, args):
         drpr_list.append(data['drpr'][i])
     for i in range(data['dipr'].shape[0]):
         dipr_list.append(data['dipr'][i])
-    # new
+    # new 2
     # for i in range(data['drdr'].shape[0]):
     #     drdr_list.append(data['drdr'][i])
     # for i in range(data['prpr'].shape[0]):
@@ -207,6 +207,7 @@ def dgl_heterograph(data, drdi, args):
         ('drug', 'association', 'disease'): (drdi_list),      #  33148
         ('drug', 'association', 'protein'): (drpr_list),      #  3809
         ('disease', 'association', 'protein'): (dipr_list),   #  5898
+        # new 3
         # ('drug', 'citing', 'drug'): (drdr_list),           #  13108
         # ('protein', 'citing', 'protein'): (prpr_list)      #  6784
     }
